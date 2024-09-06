@@ -1459,7 +1459,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &493795620
 Transform:
   m_ObjectHideFlags: 0
@@ -1497,7 +1497,7 @@ MonoBehaviour:
   _ammoPocket: 30
   _ammoMax: 4
   _damage: 5
-  _reloadDuration: 2.2
+  _reloadDuration: 0.5
   _fireRate: 0.1
   _recoil: 15
   _range: 100
@@ -1506,6 +1506,8 @@ MonoBehaviour:
   _gunPoint: {fileID: 1588086993}
   _scopePoint: {fileID: 2140434440}
   _pelletsPerShot: 12
+  _reloadInDuration: 0.5
+  _reloadOutDuration: 0.3333333
 --- !u!1 &530746912
 GameObject:
   m_ObjectHideFlags: 0
@@ -4931,7 +4933,7 @@ Animator:
   m_GameObject: {fileID: 1607115427}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 019cfcd26ecb5484c8803f512c273bcb, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1b3a67ef214a4aa47a2a059c2bab7d44, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

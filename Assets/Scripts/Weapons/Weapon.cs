@@ -5,14 +5,14 @@ public class Weapon : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] private Camera _cam;
-    [SerializeField] private Animator _animator;
+    [SerializeField] protected Animator _animator;
     [SerializeField] private LayerMask _mask;
     [SerializeField] private TMP_Text _ammoText;
 
     [Space(1)]
     [Header("Stats")]
-    [SerializeField] private int _ammoPocket, _ammoMax, _damage;
-    private int _ammoCurrent;
+    [SerializeField] protected int _ammoPocket, _ammoMax, _damage;
+    protected int _ammoCurrent;
     [SerializeField] protected float _reloadDuration, _fireRate, _recoil, _range, _scopeStrength;
     private float _cooldown;
     [SerializeField] private bool _canChangeAuto;
@@ -95,7 +95,7 @@ public class Weapon : MonoBehaviour
             trail.SetPositions(_gunPoint.position, transform.position + transform.forward * _range);
         }
     }
-    private void Reload()
+    protected virtual void Reload()
     {
         if (_ammoPocket > _ammoMax)
         {
@@ -112,5 +112,5 @@ public class Weapon : MonoBehaviour
     }
     private void AnimateShot() => _animator.SetTrigger("Shoot");
     private void AnimateReload() => _animator.SetTrigger("Reload");
-    private void UpdateAmmoText() => _ammoText.text = $"{_ammoCurrent}/{_ammoPocket}";
+    protected void UpdateAmmoText() => _ammoText.text = $"{_ammoCurrent}/{_ammoPocket}";
 }
