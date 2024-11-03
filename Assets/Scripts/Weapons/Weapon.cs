@@ -20,11 +20,13 @@ public class Weapon : MonoBehaviour
     [SerializeField] Transform _gunPoint, _scopePoint;
     Vector3 _startPosition;
 
-    private void OnEnable() => UpdateAmmoText();
+    private void OnEnable() => 
+        UpdateAmmoText();
     private void OnDisable()
     {
         // Exit scope when changing weapon
-        if(_scoped) Scope();
+        if(_scoped) 
+            Scope();
     }
     protected virtual void Start()
     {
@@ -34,11 +36,10 @@ public class Weapon : MonoBehaviour
         _canShoot = true;
         UpdateAmmoText();
     }
-    private void Update()
-    {
+    private void Update() =>
         ProcessCooldown();
-    }
-    private void ProcessCooldown() => _cooldown += Time.deltaTime;
+    private void ProcessCooldown() => 
+        _cooldown += Time.deltaTime;
     public void TryShoot()
     {
         if (Input.GetMouseButtonDown(0) || _auto)
@@ -67,7 +68,8 @@ public class Weapon : MonoBehaviour
     }
     public void ChangeAuto()
     {
-        if (_canChangeAuto) _auto = !_auto;
+        if (_canChangeAuto) 
+            _auto = !_auto;
     }
     public virtual void Scope()
     {
@@ -77,8 +79,7 @@ public class Weapon : MonoBehaviour
     }
     public virtual void Shoot()
     {
-        GameObject buffer = PoolManager.Instance.InstantiateFromPool("bulletTrail", Vector3.zero, Quaternion.identity);
-        TrailFade trail = buffer.GetComponent<TrailFade>();
+        TrailFade trail = GetTrail();
         Vector3 rayStartPosition = new Vector3(Screen.width / 2, Screen.height / 2, 0);
         Vector3 drift = new Vector3(Random.Range(-_recoil, _recoil), Random.Range(-_recoil, _recoil), Random.Range(-_recoil, _recoil));
         Ray ray = _cam.GetComponent<Camera>().ScreenPointToRay(rayStartPosition + drift);
@@ -86,7 +87,8 @@ public class Weapon : MonoBehaviour
         if (Physics.Raycast(ray, out hit, _range, _mask))
         {
             Enemy enemy = hit.collider.gameObject.GetComponentInParent<Enemy>();
-            if (enemy != null) enemy.GetDamage(_damage);
+            if (enemy != null) 
+                enemy.GetDamage(_damage);
 
             trail.SetPositions(_gunPoint.position, hit.point);
         }
@@ -95,6 +97,13 @@ public class Weapon : MonoBehaviour
             trail.SetPositions(_gunPoint.position, transform.position + transform.forward * _range);
         }
     }
+
+    private TrailFade GetTrail()
+    {
+        GameObject buffer = PoolManager.Instance.InstantiateFromPool("bulletTrail", Vector3.zero, Quaternion.identity);
+        return buffer.GetComponent<TrailFade>();
+    }
+
     protected virtual void Reload()
     {
         if (_ammoPocket > _ammoMax)
@@ -110,7 +119,10 @@ public class Weapon : MonoBehaviour
         UpdateAmmoText();
         _canShoot = true;
     }
-    private void AnimateShot() => _animator.SetTrigger("Shoot");
-    private void AnimateReload() => _animator.SetTrigger("Reload");
-    protected void UpdateAmmoText() => _ammoText.text = $"{_ammoCurrent}/{_ammoPocket}";
+    private void AnimateShot() => 
+        _animator.SetTrigger("Shoot");
+    private void AnimateReload() => 
+        _animator.SetTrigger("Reload");
+    protected void UpdateAmmoText() => 
+        _ammoText.text = $"{_ammoCurrent}/{_ammoPocket}";
 }
